@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.responses import RedirectResponse
 
 from controllers import essay_evaluation
 from controllers import spelling_grammar_grammarbot
