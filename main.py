@@ -21,7 +21,7 @@ app = FastAPI()
 
 client = GrammarBotClient()
 
-def grammar_spelling_mistakes(txt):
+def grammar_spelling_mistakes(text):
     res = client.check(text)
     return res.raw_json.get('matches')
 
