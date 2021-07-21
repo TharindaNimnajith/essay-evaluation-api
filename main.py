@@ -3,7 +3,8 @@ from fastapi import FastAPI
 # import nltk
 # import re
 # from nltk.corpus import stopwords
-from language_tool_python import LanguageTool
+# from language_tool_python import LanguageTool
+from grammarbot import GrammarBotClient
 # from keras.layers import Embedding, LSTM, Dense, Dropout, Lambda, Flatten
 # from keras.models import Sequential, load_model, model_from_config
 # import keras.backend as K
@@ -13,10 +14,16 @@ from language_tool_python import LanguageTool
 
 app = FastAPI()
 
-tool = LanguageTool('en-US')
+# tool = LanguageTool('en-US')
+
+# def grammar_spelling_mistakes(txt):
+#     return tool.check(txt)
+
+client = GrammarBotClient()
 
 def grammar_spelling_mistakes(txt):
-    return tool.check(txt)
+    res = client.check(text)
+    return res.raw_json.get('matches')
 
 # import string
 
