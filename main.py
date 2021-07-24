@@ -14,9 +14,13 @@ async def root():
 
 @app.post('/essay')
 def essay(essay: str):
-    grammar = spelling_grammar_grammarbot.evaluate(essay)
-    essay = essay_evaluation.evaluate(essay)
+    spelling, grammar, matches = spelling_grammar_grammarbot.evaluate(essay)
+    essay_score = essay_evaluation.evaluate(essay)
+    score = int((spelling + grammar + essay_score) / 3)
     return {
+        'spelling': spelling,
         'grammar': grammar,
-        'essay': essay
+        'matches': matches,
+        'essay_score': essay_score,
+        'score': score
     }
