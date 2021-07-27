@@ -28,7 +28,7 @@ async def root():
 def essay(essay: Essay):
     spelling, grammar, matches = spelling_grammar_grammarbot.evaluate(essay.essay)
     essay_score = essay_evaluation.evaluate(essay.essay)
-    score = (spelling + grammar + essay_score) / 3
+    score = (spelling * 25 + grammar * 25 + essay_score * 50) / 100
     return {
         'score': int(score),
         'essay_score': int(essay_score),

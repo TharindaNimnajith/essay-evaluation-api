@@ -1,5 +1,5 @@
 def evaluate(essay: str):
-    length = len(essay.split())
+    length = len(essay.strip().split())
     if length < 20:
         return 0
     elif length <= 20 and length < 40:
