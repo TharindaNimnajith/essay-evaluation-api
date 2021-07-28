@@ -1,15 +1,20 @@
 from grammarbot import GrammarBotClient
 
-from .util.text_preprocessing import preprocess_text_basic
+from .util import text_preprocessing
 
 client = GrammarBotClient()
 
 
 def evaluate(text):
-    text = preprocess_text_basic(text)
-    res = client.check(text)
-    matches = res.raw_json.get('matches')
-    spelling_score, grammar_score = get_score(matches, len(text.split()))
+    text = text_preprocessing.preprocess_text(text)
+    try:
+        res = client.check(text)
+        matches = res.raw_json.get('matches')
+        spelling_score, grammar_score = get_score(matches,
+                                                  len(text.split()))
+    except Exception as e:
+        print(e)
+        spelling_score, grammar_score, matches = 0, 0, []
     return spelling_score, grammar_score, matches
 
 
