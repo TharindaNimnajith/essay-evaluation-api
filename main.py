@@ -28,10 +28,12 @@ async def root():
 def essay(essay: Essay):
     spelling, grammar, matches = spelling_grammar_grammarbot.evaluate(essay.essay)
     essay_score = essay_evaluation.evaluate(essay.essay)
-    score = (spelling * 25 + grammar * 25 + essay_score * 50) / 100
+    score = round((spelling * 25 +
+                   grammar * 25 +
+                   essay_score * 50) / 100)
     return {
-        'score': round(score),
-        'essay_score': round(essay_score),
+        'score': score,
+        'essay_score': essay_score,
         'spelling': round(spelling),
         'grammar': round(grammar),
         'matches': matches
@@ -39,6 +41,8 @@ def essay(essay: Essay):
 
 
 if __name__ == '__main__':
-    uvicorn.run(app,
+    uvicorn.run('main:app',
                 host='127.0.0.1',
-                port=8001)
+                port=8001,
+                reload=True,
+                access_log=False)
