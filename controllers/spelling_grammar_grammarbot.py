@@ -30,10 +30,16 @@ def get_score(matches,
     if spelling_mistakes_count == 0:
         spelling_score = 10
     else:
-        spelling_score = (length - spelling_mistakes_count) * 7 / length
+        if length > 0:
+            spelling_score = (length - spelling_mistakes_count) * 7 / length
+        else:
+            spelling_score = 0
     if grammar_mistakes_count == 0:
         grammar_score = 10
     else:
-        grammar_score = (length - grammar_mistakes_count) * 7 / length
+        if length > 0:
+            grammar_score = (length - grammar_mistakes_count) * 7 / length
+        else:
+            grammar_score = 0
     grammar_score = grammar_score * 0.7 + spelling_score * 0.3
     return spelling_score, grammar_score
